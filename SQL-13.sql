@@ -8,3 +8,11 @@
 -- 注意: 先に DDL/テストデータを投入し、対象DBを USE 済みであること。
 
 /* ANSWER HERE */
+SELECT
+u.id AS user_id,
+u.name,
+AVG(o.total_amount) AS avg_amount
+FROM orders o
+JOIN users u ON o.user_id = u.id
+GROUP BY u.id, u.name
+ORDER BY avg_amount DESC;

@@ -9,3 +9,16 @@
 -- 注意: 先に DDL/テストデータを投入し、対象DBを USE 済みであること。
 
 /* ANSWER HERE */
+SELECT
+month,
+monthly_total,
+SUM(monthly_total) OVER (ORDER BY month) AS running_total
+FROM (
+    SELECT
+    DATE_FORMAT(order_date, '%Y-%m') AS month,
+    SUM(total_amount) AS monthly_total
+    FROM orders
+    WHERE order_date BETWEEN '2024-01-01' AND '2024-12-31'
+    GROUP BY month
+) monthly
+ORDER BY month ASC;
